@@ -14,7 +14,7 @@ public class Login extends JFrame implements ActionListener{
     Choice loggingin;
     
     Login(){
-        super("Login Page");
+        super("Login Page - Welcome to Electricity Billing System!!");
         getContentPane().setBackground(Color.white);
         System.out.print("Testing conflicts");
         setLayout(null);
