@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class SignUp extends JFrame implements ActionListener {
 
-    JButton Create, back;
+    JButton Create, back; //commented by hafiy
     Choice create;
     JTextField uname, namee, pd, meter;
 
