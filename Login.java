@@ -1,5 +1,4 @@
 // sabrina test git collaboration
-// Danial testing git collaboration.
 package electricity.billing.system;
 
 import java.awt.*;
@@ -14,9 +13,9 @@ public class Login extends JFrame implements ActionListener{
     Choice loggingin;
     
     Login(){
-        super("Login Page - Welcome to Electricity Billing System!!");
+        super("Login Page");
         getContentPane().setBackground(Color.white);
-        System.out.print("Welcome User");
+        system.out.print("Hello World Login Page");
         setLayout(null);
         
         JLabel lblusername = new JLabel("Username");
