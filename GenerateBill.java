@@ -1,4 +1,5 @@
 package electricity.billing.system;
+// danial test git.
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +7,7 @@ import java.awt.event.*;
 import java.sql.*;
 
 public class GenerateBill extends JFrame implements ActionListener{
-    
+
     String meter;
     JButton bill;
     Choice cmonth;
