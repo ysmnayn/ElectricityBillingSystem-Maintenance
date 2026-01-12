@@ -1,7 +1,7 @@
-name: SonarCloud Scan
+name: SonarQube
 
 on:
-  push: 
+  push:
     branches: 
       - main
   pull_request:
@@ -15,20 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for better analysis
+          fetch-depth:  0
       
       - name: Set up JDK 17
         uses: actions/setup-java@v3
-        with:
+        with: 
           java-version: '17'
           distribution: 'temurin'
       
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
-        with: 
+        with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner. os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
       
       - name: Cache Gradle packages
         uses: actions/cache@v3
@@ -36,17 +36,19 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner. os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle-
       
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: '8.5'
+      - name: Make gradlew executable
+        run: chmod +x gradlew || echo "No gradlew found, using gradle wrapper from action"
       
-      - name:  Build and analyze
+      - name:  Build with Gradle
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
-        run: gradle build sonar --info
+          GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          if [ -f "gradlew" ]; then
+            ./gradlew build sonar --info
+          else
+            gradle build sonar --info
+          fi
