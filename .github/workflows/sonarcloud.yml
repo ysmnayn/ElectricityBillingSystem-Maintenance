@@ -2,36 +2,33 @@ name: SonarCloud Scan
 
 on:
   push:
-    branches:
-      - main   # or 'master', whatever your main branch is
+    branches: 
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
-  sonarcloud:
+  sonarcloud: 
     name: SonarCloud Scan
-    runs-on: ubuntu-latest
-    steps:
+    runs-on:  ubuntu-latest
+    steps: 
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0   # Needed to fetch full Git history
+          fetch-depth: 0
           
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses:  actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution:  'temurin'
           java-version: '17'
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
-        with:
+        with: 
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          projectKey: auratech_electricity
-          projectName: Electricity Billing System
-          organization: haiz4d
-          token: ${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets. SONAR_TOKEN }}
